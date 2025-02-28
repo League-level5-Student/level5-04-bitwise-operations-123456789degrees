@@ -29,13 +29,62 @@ import org.junit.jupiter.api.Test;
 public class _02_Rotate {
     
     int rotateLeft(int value, int rotateAmount) {
-        return -1;
+        String binary = convertDecimalToBinary(value);
+        StringBuilder sb = new StringBuilder(binary);
+        for (int i = 0; i < rotateAmount; i++) {
+        	char c = sb.charAt(0);
+        	sb.deleteCharAt(0);
+        	sb.append(c);
+        }
+        String ans = sb.toString();
+        System.out.println(ans);
+        return convertBinaryStringToDecimalInt(ans);
     }
     
     int rotateRight(int value, int rotateAmount) {
         return -1;
     }
-    
+    public static String convertDecimalToBinary(int decimalNum) {
+        String binaryStr = "";
+
+        do {
+            // 1. Logical right shift by 1
+            int quotient = decimalNum >>> 1;
+
+            // 2. Check remainder and add '1' or '0'
+            if( decimalNum % 2 != 0 ){
+                binaryStr = '1' + binaryStr;
+            } else {
+                binaryStr = '0' + binaryStr;
+            }
+
+            decimalNum = quotient;
+
+            // 3. Repeat until number is 0
+        } while( decimalNum != 0 );
+
+        return binaryStr;
+    }
+    int convertBinaryStringToDecimalInt(String binStr) {
+    	int ans = 0;
+    	if (binStr.charAt(0) == '1') {
+    		for (int i = 0; i < binStr.length(); i++) {
+    			if (binStr.charAt(i) == '0') {
+    				
+    			}
+    		}
+    	}
+        for (int i = binStr.length()-1; i >= 0; i--) {
+        	if (binStr.charAt(i) == '0') {
+        		continue;
+        	}
+        	else {
+        		int power = binStr.length()-1 -i;
+        		ans += Math.pow(2, power);
+        	}
+        }
+        return ans;
+    }
     @Test
     void testRotateLeft() {
         int i = -8;
