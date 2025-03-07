@@ -36,13 +36,28 @@ public class _02_Rotate {
         	sb.deleteCharAt(0);
         	sb.append(c);
         }
-        String ans = sb.toString();
+        String ans = sb.toString(); 
         System.out.println(ans);
         return convertBinaryStringToDecimalInt(ans);
     }
     
     int rotateRight(int value, int rotateAmount) {
-        return -1;
+    	String binary = Integer.toBinaryString(value);
+    	System.out.println(binary);
+    	System.out.println(rotateAmount);
+        StringBuilder sb = new StringBuilder(binary);
+        while (sb.length() < 32) {
+    		sb.insert(0, '0');
+    	}
+        for (int i = 0; i < rotateAmount; i++) {
+        	char c = sb.charAt(sb.length() - 1);
+        	sb.deleteCharAt(sb.length() - 1);
+        	sb.insert(0, c);
+        }
+        String ans = sb.toString();
+        System.out.println(ans);
+        System.out.println(convertBinaryStringToDecimalInt(ans));
+        return convertBinaryStringToDecimalInt(ans);
     }
     public static String convertDecimalToBinary(int decimalNum) {
         String binaryStr = "";
@@ -67,23 +82,41 @@ public class _02_Rotate {
     }
     int convertBinaryStringToDecimalInt(String binStr) {
     	int ans = 0;
+    	StringBuilder sb = new StringBuilder(binStr);
+    	String temp = binStr;
     	if (binStr.charAt(0) == '1') {
     		for (int i = 0; i < binStr.length(); i++) {
     			if (binStr.charAt(i) == '0') {
-    				
+    				sb.setCharAt(i, '1');
+    			}
+    			else {
+    				sb.setCharAt(i, '0');
+    			}
+    		}
+    		for (int i = sb.length() - 1; i >= 0; i--) {
+    			if (sb.charAt(i) == '0') {
+    				sb.setCharAt(i, '1');
+    				break;
+    			}
+    			else {
+    				sb.setCharAt(i, '0');
     			}
     		}
     	}
-        for (int i = binStr.length()-1; i >= 0; i--) {
-        	if (binStr.charAt(i) == '0') {
-        		continue;
-        	}
-        	else {
-        		int power = binStr.length()-1 -i;
-        		ans += Math.pow(2, power);
-        	}
+    	binStr = sb.toString();
+    	for (int i = binStr.length()-1; i >= 0; i--) {
+            if (binStr.charAt(i) == '0') {
+            	continue;
+            }
+            else {
+            	int power = binStr.length()-1 -i;
+            	ans += Math.pow(2, power);
+            }
         }
-        return ans;
+    	if (temp.charAt(0) == '1') {
+    		return ans * -1;
+    	}
+    	return ans;
     }
     @Test
     void testRotateLeft() {
