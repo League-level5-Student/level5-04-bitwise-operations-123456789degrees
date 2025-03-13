@@ -15,6 +15,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import _00_Binary_Conversion._02_BinaryToDecimal;
+
 /*
  * Goal: Create a program that converts a binary string to ascii, decimal,
  *       and hexadecimal.
@@ -52,11 +54,40 @@ public class _02_HexadecimalPrinter implements ActionListener {
      * You don't have to handle negative numbers unless you want the challenge!
      */
     String binaryToHex(String binaryStr) {
-        return "-";
+    	String ans = ""; 
+    	while (binaryStr.length() % 4 != 0) {
+    		binaryStr = "0" + binaryStr;
+    	}
+    	int count = binaryStr.length() / 4;
+    	for (int i = 0; i < count; i++) {
+    		int temp = _02_BinaryToDecimal.convertBinaryStringToDecimalInt(binaryStr.substring(4 * i, 4 * (i+1)));
+        	if (temp == 10) {
+        		ans += 'A';
+        	}
+        	else if (temp == 11) {
+        		ans += 'B';
+        	}
+        	else if (temp == 12) {
+        		ans += 'C';
+        	}
+        	else if (temp == 13) {
+        		ans += 'D';
+        	}
+        	else if (temp == 14) {
+        		ans += 'E';
+        	}
+        	else if (temp == 15) {
+        		ans += 'F';
+        	}
+        	else {
+        		ans += temp;
+        	}
+    	}
+    	return ans;
     }
     
     String binaryToDec(String binaryStr) {
-        return "-";
+    	return "NOT DONE YET";
     }
 
     /*
@@ -66,8 +97,8 @@ public class _02_HexadecimalPrinter implements ActionListener {
         if (binaryStr.length() != 8) {
             return "-";
         }
-
-        return "-";
+        return "NOT DONE YET";
+        
     }
     
     public static void main(String[] args) {
