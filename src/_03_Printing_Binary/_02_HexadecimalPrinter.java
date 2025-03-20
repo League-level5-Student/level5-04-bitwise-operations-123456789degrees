@@ -87,7 +87,9 @@ public class _02_HexadecimalPrinter implements ActionListener {
     }
     
     String binaryToDec(String binaryStr) {
-    	return "NOT DONE YET";
+    	int a = _02_BinaryToDecimal.convertBinaryStringToDecimalInt(binaryStr);
+    	String ans = Integer.toString(a);
+    	return ans;
     }
 
     /*
@@ -97,7 +99,10 @@ public class _02_HexadecimalPrinter implements ActionListener {
         if (binaryStr.length() != 8) {
             return "-";
         }
-        return "NOT DONE YET";
+        String s = binaryToDec(binaryStr);
+        int a = Integer.parseInt(s);
+       	char ch = (char) a;
+       	return String.valueOf(ch);
         
     }
     
