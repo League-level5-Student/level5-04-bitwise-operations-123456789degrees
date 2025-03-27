@@ -45,30 +45,45 @@ package _05_Base64_Decoder;
  */
 public class Base64Decoder {
 
-    final static char[] base64Chars = {
-            'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
-            'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
-            'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
-            'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
-            '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '+', '/'
-    };
+	final static char[] base64Chars = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P',
+			'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k',
+			'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '0', '1', '2', '3', '4', '5',
+			'6', '7', '8', '9', '+', '/' };
 
-    //1. Complete this method so that it returns the index in
-    //   the base64Chars array that corresponds to the passed in char.
-    public static byte convertBase64Char(char c){
-        return 0;
-    }
+	// 1. Complete this method so that it returns the index in
+	// the base64Chars array that corresponds to the passed in char.
+	public static byte convertBase64Char(char c) {
+		int ans = 0;
+		for (int i = 0; i < 64; i++) {
+			if (base64Chars[i] == c) {
+				ans = i;
+			}
+		}
+		return (byte) ans;
+	}
 
-    //2. Complete this method so that it will take in a string that is 4
-    //   characters long and return an array of 3 bytes (24 bits). The byte
-    //   array should be the binary value of the encoded characters.
-    public static byte[] convert4CharsTo24Bits(String s){
-        return null;
-    }
+	// 2. Complete this method so that it will take in a string that is 4
+	// characters long and return an array of 3 bytes (24 bits). The byte
+	// array should be the binary value of the encoded characters.
+	public static byte[] convert4CharsTo24Bits(String s) {
+		byte char1 = convertBase64Char(s.charAt(0));
+		byte char2 = convertBase64Char(s.charAt(1));
+		byte char3 = convertBase64Char(s.charAt(2));
+		byte char4 = convertBase64Char(s.charAt(3));
+		byte[] ans = new byte[3];
+		ans[0] = (byte) ((char1 << 2) + (char2 >> 4));
+		ans[1] = (byte) ((char2 << 4) + (char3 >> 2));
+		ans[2] = (byte) ((char3 << 6) + (char4));
+		return ans;
+	}
 
-    //3. Complete this method so that it takes in a string of any length
-    //   and returns the full byte array of the decoded base64 characters.
-    public static byte[] base64StringToByteArray(String file) {
-        return null;
-    }
+	// 3. Complete this method so that it takes in a string of any length
+	// and returns the full byte array of the decoded base64 characters.
+	public static byte[] base64StringToByteArray(String file) {
+		byte[] ans = new byte[file.length()];
+		for (int i = 0; i < file.length(); i++) {
+			ans[i] = convertBase64Char(file.charAt(i));
+		}
+		return ans;
+	}
 }
